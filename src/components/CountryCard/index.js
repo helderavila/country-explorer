@@ -1,25 +1,34 @@
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
+import { motion } from "framer-motion";
 
-import { AiOutlineEdit } from 'react-icons/ai'
+import { AiOutlineEdit } from "react-icons/ai";
 
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
 function CountryCard({ country, onEditCountry }) {
-  const history = useHistory()
-
+  const history = useHistory();
 
   return (
-    <section className={styles.cardContainer}>
-      <button 
+    <motion.li
+      className={styles.cardContainer}
+      variants={{
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1,
+        },
+      }}
+    >
+      <button
         type="button"
         className={styles.favoriteButton}
         onClick={() => onEditCountry(country)}
       >
-        <AiOutlineEdit color="#363636"/>
+        <AiOutlineEdit color="#363636" />
       </button>
-      <img src={country.flag} alt={country.name}/>
-      <div 
-        onClick={() => 
+      <img src={country.flag} alt={country.name} />
+      <div
+        onClick={() =>
           history.push(`/country`, {
             country: {
               flag: country.flag,
@@ -29,15 +38,19 @@ function CountryCard({ country, onEditCountry }) {
               population: country.population,
               latlng: country.latlng,
               area: country.area,
-              domain: country.topLevelDomain[0]
-            }})}  
+              domain: country.topLevelDomain[0],
+            },
+          })
+        }
         className={styles.cardInfoWrapper}
       >
-        <p className={styles.cardTitle}>{country.name} <span>{country.alpha3Code}</span></p>
+        <p className={styles.cardTitle}>
+          {country.name} <span>{country.alpha3Code}</span>
+        </p>
         <p>{country.capital}</p>
       </div>
-    </section>
-  )
+    </motion.li>
+  );
 }
 
-export default CountryCard
+export default CountryCard;

@@ -25,12 +25,14 @@ function Layout({ children }) {
         </nav>
       </header>
       {children}
-      <Pagination 
+     {location.pathname === '/' && (
+        <Pagination 
         currentPage={pagination.currentPage}
         pageCount={pagination.pageCount}
         nextPage={() => dispatch(countriesNextPage())}
         previousPage={() => dispatch(countriesPreviousPage())}
       />
+     )}
     </section>
   )
 }
