@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
 // Libs
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify'
+import { AiOutlineClose } from 'react-icons/ai'
 import Modal from 'react-modal';
 
 
@@ -23,7 +25,10 @@ function Home() {
   
   // ReduxState
   const countries = useSelector((state) => state.country.countries);
+  const pagination = useSelector((state) => state.country.pagination);
+
   
+
   // ComponentState
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [editCountryData, setEditCountryData] = useState()
@@ -64,11 +69,17 @@ function Home() {
     <Modal
           isOpen={modalIsOpen}
           onRequestClose={handleCloseModal}
-          contentLabel="Example Modal"
+          contentLabel="Editar país"
           className={styles.Modal}
           overlayClassName={styles.Overlay}
         >
-
+          <button 
+            type="button"
+            className={styles.modalCloseButton}
+            onClick={handleCloseModal}
+          >
+            <AiOutlineClose />
+          </button>
           <form 
             className={styles.formContainer}
             onSubmit={handleSubmit(onSubmit)}
@@ -132,7 +143,7 @@ function Home() {
           </form>
         </Modal>
       <ul className={styles.container}>
-        {countries.slice(0, 12).map((country, index) => (
+        {countries.slice(pagination.currentPage * 12,(pagination.currentPage + 1) * 12).map((country, index) => (
           <CountryCard 
             key={index} 
             country={country}
@@ -140,6 +151,7 @@ function Home() {
           />
         ))}
       </ul>
+      
     </>
   );
 }

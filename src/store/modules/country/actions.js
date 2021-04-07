@@ -30,3 +30,15 @@ export function countryEditRequest(dataRequest, searchParam) {
     payload: { dataRequest, searchParam }
   }
 }
+
+export function countriesNextPage() {
+  return {
+    type: '@country/NEXT_PAGE',
+  }
+}
+
+export function countriesPreviousPage() {
+  return {
+    type: '@country/PREVIOUS_PAGE',
+  }
+}

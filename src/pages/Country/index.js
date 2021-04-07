@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -20,8 +20,6 @@ function Country() {
       <header className={styles.header}>
         <img src={state?.country.flag} alt={state?.country.name} />
         <div className={styles.countryDetailsContainer}>
-          {/* <h1>Brazil</h1>
-          <span>Brazilia</span> */}
           <ul className={styles.countryDetailsWrapper}>
             <li>
               <p>{state?.country.name}</p>

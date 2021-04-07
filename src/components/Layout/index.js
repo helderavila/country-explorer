@@ -1,9 +1,16 @@
 import { Link, useLocation, useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import Pagination from '../Pagination'
 
 import styles from './styles.module.scss'
 
+import { countriesNextPage, countriesPreviousPage } from '../../store/modules/country/actions'
+
 function Layout({ children }) {
+  const pagination = useSelector((state) => state.country.pagination);
+
   const location = useLocation()
+  const dispatch = useDispatch()
   const history = useHistory()
 
   return (
@@ -18,6 +25,12 @@ function Layout({ children }) {
         </nav>
       </header>
       {children}
+      <Pagination 
+        currentPage={pagination.currentPage}
+        pageCount={pagination.pageCount}
+        nextPage={() => dispatch(countriesNextPage())}
+        previousPage={() => dispatch(countriesPreviousPage())}
+      />
     </section>
   )
 }
