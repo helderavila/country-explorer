@@ -1,10 +1,10 @@
-import { Link, useLocation, useHistory } from 'react-router-dom'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useHistory } from 'react-router-dom'
 
 // Styles
 import styles from './styles.module.scss';
 
 function Header() {
-  const location = useLocation()
   const history = useHistory()
 
   return (
@@ -13,7 +13,7 @@ function Header() {
           <h1 onClick={() => history.push('/')}>country-explorer 🌎</h1>
         </div>
         <nav className={styles.headerNavbar}>
-          <Link to="/" className={location.pathname === '/' && styles.active}>Início</Link>
+          <a onClick={() => history.push('/')} className={history?.location.pathname === '/' ? styles.active : ''}>Início</a>
         </nav>
       </header>
   )

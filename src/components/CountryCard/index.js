@@ -10,6 +10,7 @@ function CountryCard({ country, onEditCountry }) {
 
   return (
     <motion.li
+      data-testid="country-card-container"
       className={styles.cardContainer}
       variants={{
         hidden: { y: 20, opacity: 0 },
@@ -26,10 +27,15 @@ function CountryCard({ country, onEditCountry }) {
         type="button"
         className={styles.favoriteButton}
         onClick={() => onEditCountry(country)}
+        data-testid="country-card-edit-button"
       >
         <AiOutlineEdit color="#363636" />
       </button>
-      <img src={country.flag} alt={country.name} />
+      <img 
+        src={country.flag} 
+        alt={country.name}
+        data-testid="country-card-image"
+      />
       <div
         onClick={() =>
           history.push(`/country`, {
@@ -47,7 +53,7 @@ function CountryCard({ country, onEditCountry }) {
         }
         className={styles.cardInfoWrapper}
       >
-        <p className={styles.cardTitle}>
+        <p className={styles.cardTitle} data-testid="country-card-title">
           {country.name} <span>{country.alpha3Code}</span>
         </p>
         <p>{country.capital}</p>

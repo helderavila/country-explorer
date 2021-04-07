@@ -207,7 +207,7 @@ function Home() {
       </motion.ul>
       {filteredCountries.length === 0 && (
         <Pagination
-          currentPage={pagination.currentPage}
+          currentPage={pagination.currentPage + 1}
           pageCount={pagination.pageCount}
           nextPage={() => dispatch(countriesNextPage())}
           previousPage={() => dispatch(countriesPreviousPage())}

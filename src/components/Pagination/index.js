@@ -5,13 +5,23 @@ import styles from "./styles.module.scss";
 function Pagination({ nextPage, previousPage, currentPage, pageCount }) {
   
   return (
-    <footer className={styles.container}>
+    <footer data-testid="footer-pagination" className={styles.container}>
       <nav className={styles.paginationWrapper}>
-        <button type="button" onClick={previousPage} disabled={currentPage === 0}>
+        <button 
+          data-testid="previous-button-pagination" 
+          type="button" 
+          onClick={previousPage} 
+          disabled={currentPage === 1}
+        >
           <IoIosArrowBack color="#0077FF"/>
         </button>
-        <span>{currentPage + 1}/{pageCount}</span>
-        <button type="button" onClick={nextPage} disabled={currentPage + 1 === pageCount}>
+        <span data-testid="text-pagination">{currentPage}/{pageCount}</span>
+        <button 
+          data-testid="next-button-pagination" 
+          type="button" 
+          onClick={nextPage} 
+          disabled={currentPage === pageCount}
+        >
           <IoIosArrowForward color="#0077FF"/>
         </button>
       </nav>
