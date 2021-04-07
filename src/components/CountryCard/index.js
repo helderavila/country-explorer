@@ -18,6 +18,9 @@ function CountryCard({ country, onEditCountry }) {
           opacity: 1,
         },
       }}
+      whileHover={{
+        scale: 1.06,
+      }}
     >
       <button
         type="button"

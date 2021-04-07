@@ -1,0 +1,33 @@
+.layoutHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  position: sticky;
+
+  h1 {
+    color: var(--dark-gray);
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}
+
+.headerNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  a {
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--blue);
+  }
+}
+
+.active {
+  color: var(--blue);
+}
