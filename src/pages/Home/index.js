@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+
+// Libs
 import { useDispatch, useSelector } from "react-redux";
-import Modal from 'react-modal';
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify'
+import Modal from 'react-modal';
+
 
 // Redux
-import { countriesListRequest } from "../../store/modules/country/actions";
+import { countriesListRequest, countryEditRequest } from "../../store/modules/country/actions";
 
 // Components
 import CountryCard from "../../components/CountryCard";
@@ -16,8 +20,7 @@ Modal.setAppElement('#root')
 
 function Home() {
   const dispatch = useDispatch();
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-
+  
   // ReduxState
   const countries = useSelector((state) => state.country.countries);
   
@@ -25,25 +28,42 @@ function Home() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [editCountryData, setEditCountryData] = useState()
   
+  const { register, handleSubmit, setValue } = useForm();
+
+
   useEffect(() => {
     if (countries.length <= 0) dispatch(countriesListRequest());
     document.title = "Início | CountryExplorer";
   }, []);
   
-  
-  const onSubmit = data => console.log(data);
+
+  function onSubmit(data) {
+    dispatch(countryEditRequest(data, editCountryData))
+    setEditCountryData(null)
+    setModalIsOpen(false)
+    toast.success("País editado com sucesso!")
+  }
 
   function handleOpenModal(countryData) {
     setModalIsOpen(true)
-    setEditCountryData(countryData)
-    console.log(countryData)
+    setEditCountryData(countryData.alpha3Code)
+    setValue('name', countryData.name)
+    setValue('capital', countryData.capital)
+    setValue('region', countryData.region)
+    setValue('area', countryData.area)
+    setValue('population', countryData.population)
+  }
+
+  function handleCloseModal() {
+    setModalIsOpen(false)
+    setEditCountryData(null)
   }
 
   return (
     <>
     <Modal
           isOpen={modalIsOpen}
-          onRequestClose={() => setModalIsOpen(false)}
+          onRequestClose={handleCloseModal}
           contentLabel="Example Modal"
           className={styles.Modal}
           overlayClassName={styles.Overlay}
@@ -61,7 +81,6 @@ function Home() {
                   name="name" 
                   id="name" 
                   placeholder="País" 
-                  defaultValue={editCountryData?.name}
                   {...register("name")}
                 />
               </label>
@@ -71,7 +90,6 @@ function Home() {
                   name="capital" 
                   id="capital" 
                   placeholder="Capital" 
-                  defaultValue={editCountryData?.capital}
                   {...register("capital")}
                 />
               </label>
@@ -82,7 +100,6 @@ function Home() {
                 name="region" 
                 id="region" 
                 placeholder="Região" 
-                defaultValue={editCountryData?.region}
                 {...register("region")}
               />
             </label>
@@ -93,7 +110,6 @@ function Home() {
                   name="area" 
                   id="area" 
                   placeholder="Area" 
-                  defaultValue={editCountryData?.area}
                   {...register("area")}
                 />
               </label>
@@ -104,7 +120,6 @@ function Home() {
                   name="population" 
                   id="population" 
                   placeholder="População"
-                  defaultValue={editCountryData?.population}
                   {...register("population")}
                 />
               </label>

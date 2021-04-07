@@ -23,3 +23,10 @@ export function countrySuccess(dataRequest) {
     payload: { dataRequest }
   }
 }
+
+export function countryEditRequest(dataRequest, searchParam) {
+  return {
+    type: '@country/EDIT_REQUEST',
+    payload: { dataRequest, searchParam }
+  }
+}

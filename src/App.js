@@ -1,13 +1,15 @@
 import "./config/ReactotronConfig";
 import "./styles/global.scss";
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
-import Routes from './routes';
+import Routes from "./routes";
 
-import store from './store'
-import history from './services/history'
+import store from "./store";
+import history from "./services/history";
 
 // Components
 import Layout from "./components/Layout";
@@ -17,7 +19,8 @@ function App() {
     <Provider store={store}>
       <Router history={history}>
         <Layout>
-          <Routes />
+            <ToastContainer />
+            <Routes />
         </Layout>
       </Router>
     </Provider>
