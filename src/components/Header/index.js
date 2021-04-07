@@ -13,7 +13,7 @@ function Header() {
           <h1 onClick={() => history.push('/')}>country-explorer 🌎</h1>
         </div>
         <nav className={styles.headerNavbar}>
-          <a onClick={() => history.push('/')} className={history?.location.pathname === '/' ? styles.active : ''}>Início</a>
+          <a onClick={() => history.push('/')} className={`${history?.location === '/' && styles.active}`}>Início</a>
         </nav>
       </header>
   )
