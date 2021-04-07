@@ -8,8 +8,7 @@ function Layout({ children }) {
     <section className={styles.layoutContainer}>
       <header className={styles.layoutHeader}>
         <div>
-          <h2>Olá, Bem-vindo(a) 👋</h2>
-          <h1>Explore e conheça novos lugares</h1>
+          <h1>country-explorer 🌎</h1>
         </div>
         <nav className={styles.headerNavbar}>
           <Link to="/">Início</Link>
