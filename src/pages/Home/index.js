@@ -13,13 +13,17 @@ import Modal from "react-modal";
 import {
   countriesListRequest,
   countryEditRequest,
+  countriesNextPage,
+  countriesPreviousPage
 } from "../../store/modules/country/actions";
 
 // Components
 import CountryCard from "../../components/CountryCard";
+import Pagination from "../../components/Pagination";
 
 // Styles
 import styles from "./styles.module.scss";
+import SearchInput from "../../components/SearchInput";
 
 Modal.setAppElement("#root");
 
@@ -33,6 +37,8 @@ function Home() {
   // ComponentState
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editCountryData, setEditCountryData] = useState();
+  const [search, setSearch] = useState("");
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
   const { register, handleSubmit, setValue } = useForm();
 
@@ -40,6 +46,20 @@ function Home() {
     if (countries.length <= 0) dispatch(countriesListRequest());
     document.title = "Início | CountryExplorer";
   }, []);
+
+  useEffect(() => {
+    if (search.length > 0) {
+      const filtered = countries.filter(
+        (country) =>
+          country.name.toLowerCase().includes(search) ||
+          country.capital.toLowerCase().includes(search)
+      );
+      setFilteredCountries(filtered);
+    } else {
+      setFilteredCountries([]);
+      setSearch("");
+    }
+  }, [search]);
 
   function onSubmit(data) {
     dispatch(countryEditRequest(data, editCountryData));
@@ -65,6 +85,7 @@ function Home() {
 
   return (
     <>
+      <SearchInput onSearch={setSearch} />
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={handleCloseModal}
@@ -157,16 +178,41 @@ function Home() {
         initial="hidden"
         animate="visible"
       >
-        {countries
-          .slice(pagination.currentPage * 12, (pagination.currentPage + 1) * 12)
-          .map((country, index) => (
-            <CountryCard
-              key={index}
-              country={country}
-              onEditCountry={(countryData) => handleOpenModal(countryData)}
-            />
-          ))}
+        {filteredCountries.length > 0 ? (
+          <>
+            {filteredCountries.slice(0, 12).map((country, index) => (
+              <CountryCard
+                key={index}
+                country={country}
+                onEditCountry={(countryData) => handleOpenModal(countryData)}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {countries
+              .slice(
+                pagination.currentPage * 12,
+                (pagination.currentPage + 1) * 12
+              )
+              .map((country, index) => (
+                <CountryCard
+                  key={index}
+                  country={country}
+                  onEditCountry={(countryData) => handleOpenModal(countryData)}
+                />
+              ))}
+          </>
+        )}
       </motion.ul>
+      {filteredCountries.length === 0 && (
+        <Pagination
+          currentPage={pagination.currentPage}
+          pageCount={pagination.pageCount}
+          nextPage={() => dispatch(countriesNextPage())}
+          previousPage={() => dispatch(countriesPreviousPage())}
+        />
+      )}
     </>
   );
 }
