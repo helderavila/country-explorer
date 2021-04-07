@@ -18,13 +18,13 @@
   h1 {
     color: var(--dark-gray);
     font-size: 2rem;
+    cursor: pointer;
   }
 }
 
 .headerNavbar {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 4px;
 
   a {
     transition: color 0.3s;
@@ -34,4 +34,8 @@
   a:hover {
     color: var(--blue);
   }
+}
+
+.active {
+  color: var(--blue);
 }
