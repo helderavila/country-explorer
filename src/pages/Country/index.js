@@ -1,39 +1,50 @@
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useHistory } from 'react-router-dom'
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 import styles from "./styles.module.scss";
 
 function Country() {
+  const history = useHistory()
+  const { state } = useLocation()
+
+  useEffect(() => {
+    if (!state) history.push('/')
+  },[])
+
   return (
     <section className={styles.container}>
       <header className={styles.header}>
-        <img src="https://restcountries.eu/data/bra.svg" alt="" />
+        <img src={state?.country.flag} alt={state?.country.name} />
         <div className={styles.countryDetailsContainer}>
           {/* <h1>Brazil</h1>
           <span>Brazilia</span> */}
           <ul className={styles.countryDetailsWrapper}>
             <li>
-              <p>Brasil</p>
+              <p>{state?.country.name}</p>
               <span>País</span>
             </li>
             <li>
-              <p>Brasilia</p>
+              <p>{state?.country.capital}</p>
               <span>Capital</span>
             </li>
             <li>
-              <p>America do SUl</p>
+              <p>{state?.country.region}</p>
               <span>Região</span>
             </li>
             <li>
-              <p>199.00KM</p>
+              <p>{new Intl.NumberFormat('pt-BR', { style: 'decimal' }).format(state?.country.area)}KM²</p>
               <span>Área</span>
             </li>
             <li>
-              <p>57100</p>
+              <p>{new Intl.NumberFormat('pt-BR', { style: 'decimal' }).format(state?.country.population)}</p>
               <span>População</span>
             </li>
             <li>
-              <p>.br</p>
-              <span>Dominio</span>
+              <p>{state?.country.domain}</p>
+              <span>Domínio</span>
             </li>
           </ul>
         </div>
@@ -42,7 +53,7 @@ function Country() {
         <h1>Mapa</h1>
         <div className={styles.mapContainer}>
           <MapContainer
-            center={[-10.0,-55.0]}
+            center={state?.country.latlng}
             zoom={3}
             scrollWheelZoom={false}
           >
@@ -50,9 +61,9 @@ function Country() {
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[-10.0,-55.0]}>
+            <Marker position={state?.country.latlng}>
               <Popup>
-                Brazil
+                {state?.country.name}
               </Popup>
             </Marker>
           </MapContainer>

@@ -12,7 +12,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Home}/>
       <Route path="/favorites" exact component={Favorites}/>
-      <Route path="/country/:name" exact component={Country}/>
+      <Route path="/country" exact component={Country}/>
     </Switch>
   );
 }

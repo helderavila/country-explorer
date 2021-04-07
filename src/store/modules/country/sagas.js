@@ -1,8 +1,15 @@
 import { call, put, all, takeLatest } from 'redux-saga/effects'
 
-export function * getUser ({ payload }) {
+import { countriesListSuccess } from './actions'
+
+import api from '../../../services/api'
+
+export function * countryList ({ payload }) {
   try {
-    yield console.log('test')
+    const response = yield call(api.get, `/all`)
+
+    yield put(countriesListSuccess(response.data))
+
   } catch (e) {
     yield console.log('test')  
   }
@@ -10,5 +17,5 @@ export function * getUser ({ payload }) {
 }
 
 export default all([
-  takeLatest('@user/REQUEST', getUser),
+  takeLatest('@country/LIST_REQUEST', countryList),
 ])
