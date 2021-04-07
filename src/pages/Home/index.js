@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 // Libs
 import { motion } from "framer-motion";
+import Lottie from "react-lottie";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -14,7 +15,7 @@ import {
   countriesListRequest,
   countryEditRequest,
   countriesNextPage,
-  countriesPreviousPage
+  countriesPreviousPage,
 } from "../../store/modules/country/actions";
 
 // Components
@@ -24,6 +25,7 @@ import Pagination from "../../components/Pagination";
 // Styles
 import styles from "./styles.module.scss";
 import SearchInput from "../../components/SearchInput";
+import * as animationData from "../../assets/loading.json";
 
 Modal.setAppElement("#root");
 
@@ -31,6 +33,7 @@ function Home() {
   const dispatch = useDispatch();
 
   // ReduxState
+  const loading = useSelector((state) => state.country.loading);
   const countries = useSelector((state) => state.country.countries);
   const pagination = useSelector((state) => state.country.pagination);
 
@@ -162,6 +165,24 @@ function Home() {
           <button type="submit">Salvar</button>
         </form>
       </Modal>
+      {loading && (
+        <div className={styles.loadingContainer}>
+          <Lottie
+            options={{
+              loop: false,
+              autoplay: true,
+              animationData: animationData.default,
+              rendererSettings: {
+                preserveAspectRatio: "xMidYMid slice",
+              },
+            }}
+            height={300}
+            width={300}
+            isStopped={false}
+            isPaused={false}
+          />
+        </div>
+      )}
       <motion.ul
         className={styles.container}
         variants={{
@@ -205,7 +226,7 @@ function Home() {
           </>
         )}
       </motion.ul>
-      {filteredCountries.length === 0 && (
+      {filteredCountries.length === 0 && !loading && (
         <Pagination
           currentPage={pagination.currentPage + 1}
           pageCount={pagination.pageCount}

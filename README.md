@@ -1,6 +1,6 @@
 # CountryExplorer | Softplan
 
-Teste desenvolvido para a empresa Softplan. [Live-Demo](https://codeby-eta.vercel.app/)
+Teste desenvolvido para a empresa Softplan. [Live-Demo](https://country-explorer.vercel.app/)
 
 ## 🤔 Como iniciar
 
@@ -24,6 +24,7 @@ Depois de seguir o guia anterior, dentro da pasta do projeto execute o seguinte 
 - [Reactotron](https://github.com/infinitered/reactotron)
 - [React Toastify](https://github.com/fkhadra/react-toastify)
 - [Framer Motion](https://www.framer.com/motion/)
+- [React Lottie](https://www.npmjs.com/package/react-lottie)
 - [Leaflet](https://leafletjs.com/)
 - [Axios](https://github.com/axios/axios)
 - [React Hook Form](https://react-hook-form.com/)
