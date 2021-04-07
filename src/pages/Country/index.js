@@ -12,6 +12,7 @@ function Country() {
 
   useEffect(() => {
     if (!state) history.push('/')
+    document.title = `${state.country.name} | CountryExplorer`
   },[])
 
   return (
