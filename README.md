@@ -1,6 +1,4 @@
-# CountryExplorer | Softplan
-
-Teste desenvolvido para a empresa Softplan. [Live-Demo](https://country-explorer.vercel.app/)
+# CountryExplorer
 
 ## 🤔 Como iniciar
 
